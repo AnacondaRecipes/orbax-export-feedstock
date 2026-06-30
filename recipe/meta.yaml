@@ -14,6 +14,10 @@ build:
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   # jaxtyping not available for py<311
   skip: true  # [py<311]
+  # skip win: don't have tensorstore for win
+  skip: true  # [win]
+  # skip py314: No tensorflow for py314 
+  skip: true  # [py>313]
 
 requirements:
   host:
