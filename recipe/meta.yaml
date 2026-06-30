@@ -1,0 +1,63 @@
+{% set name = "orbax-export" %}
+{% set version = "0.0.8" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/orbax_export-{{ version }}.tar.gz
+  sha256: 544eef564e2a6f17cd11b1167febe348b7b7cf56d9575de994a33d5613dd568a
+
+build:
+  number: 0
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  # jaxtyping not available for py<311
+  skip: true  # [py<311]
+  # skip win: don't have tensorstore for win
+  skip: true  # [win]
+  # skip py314: No tensorflow for py314 
+  skip: true  # [py>313]
+
+requirements:
+  host:
+    - pip
+    - python
+    - flit-core >=3.5,<4
+  run:
+    - python
+    - absl-py
+    - dataclasses-json
+    - etils
+    - jax >=0.4.34
+    - jaxlib
+    - jaxtyping
+    - numpy
+    - protobuf
+    - orbax-checkpoint >=0.9.0
+  run_constrained:
+    # From the readme - requires TensorFlow, but does not include it by default to allow for flexibility in version choice
+    - tensorflow
+
+test:
+  imports:
+    - orbax
+  commands:
+    - pip check
+  requires:
+    - pip
+
+about:
+  home: https://github.com/google/orbax
+  summary: Orbax Export
+  license: Apache-2.0
+  license_file: LICENSE
+  license_family: Apache
+  description: |
+    Orbax includes a serialization library for JAX users, enabling the exporting of JAX models to the TensorFlow SavedModel format.
+  dev_url: https://github.com/google/orbax
+  doc_url: https://github.com/google/orbax
+
+extra:
+  recipe-maintainers:
+    - snegireff
