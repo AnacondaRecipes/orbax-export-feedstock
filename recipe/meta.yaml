@@ -34,7 +34,8 @@ requirements:
 
 test:
   imports:
-    - orbax_export
+    - orbax
+    - orbax.export
   commands:
     - pip check
   requires:
