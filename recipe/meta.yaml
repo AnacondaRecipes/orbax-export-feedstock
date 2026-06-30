@@ -31,6 +31,8 @@ requirements:
     - numpy
     - protobuf
     - orbax-checkpoint >=0.9.0
+    # From the readme - requires TensorFlow, but does not include it by default to allow for flexibility in version choice
+    - tensorflow
 
 test:
   imports:
