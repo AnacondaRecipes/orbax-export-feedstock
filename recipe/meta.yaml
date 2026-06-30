@@ -12,7 +12,8 @@ source:
 build:
   number: 0
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  skip: true  # [py<310]
+  # jaxtyping not available for py<311
+  skip: true  # [py<311]
 
 requirements:
   host:
